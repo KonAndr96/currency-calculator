@@ -11,7 +11,7 @@
         v-model="username"
       />
       <input
-        type="text"
+        type="password"
         placeholder="Password"
         v-model="password"
       />
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 export default {
@@ -43,7 +43,7 @@ export default {
     const router = useRouter()
     const username = ref('')
     const password = ref('')
-    const jwt = computed(() => store.state.jwt)
+    // const jwt = computed(() => store.state.jwt)
 
     //  STRIPS THE USER OF ANY AUTHORIZING PARAMS. RELOGIN IS NEEDED TO REGAIN AUTHORIZATION.
     onMounted(() => {
@@ -65,11 +65,11 @@ export default {
       })
       username.value = ''
       password.value = ''
+      router.push('/')
       // IF JWT IS FOUND , USER IS AUTHORIZED AND REDIRECTED TO HOME PAGE WITH ADMIN PRIVILAGES.
-      if (jwt.value) {
-        store.commit('AUTHORIZE')
-        router.push('/')
-      }
+      // if (jwt.value) {
+      //   store.commit('AUTHORIZE')
+      // }
     }
     return {
       handleCancel,
